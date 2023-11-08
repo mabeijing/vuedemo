@@ -3,9 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="./vue.js"></script>
+    <title>index</title>
 </head>
 <body>
-    
+    <div id="app">
+        {{ message }}
+        <span v-bind:title="message">
+            鼠标悬停就可以看到绑定的值
+        </span>
+        <section v-if="show">我能看到文字</section>
+
+        <section>
+            <ul>
+                <li v-for="student in student_array">
+                    {{ student.name }}
+                </li>
+            </ul>
+        </section>
+
+        <button v-on:click="change">按钮</button>
+        <demo></demo>
+    </div>
 </body>
+<script>
+    Vue.component('demo',{
+        data: function(){
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    })
+    var app = new Vue({
+        el: "#app",
+        data: {
+            message: "Hello Vue",
+            show: true,
+            student_array: [
+                {name: "mabeijing"},
+                {name: "zhangwenyu"}
+            ]
+        },
+        methods: {
+            change: function() {
+                this.show = !this.show;
+            }
+        }
+    })
+</script>
 </html>
